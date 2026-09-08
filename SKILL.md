@@ -118,7 +118,8 @@ description: |
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "<主力模型ID>",
     "ANTHROPIC_MODEL": "<主力模型ID>",
     "API_TIMEOUT_MS": "3000000",
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT": "1"
   }
 }
 ```
@@ -135,5 +136,8 @@ description: |
 | `ANTHROPIC_DEFAULT_SONNET_MODEL` | 主对话（日常默认档位） |
 | `ANTHROPIC_DEFAULT_OPUS_MODEL` | 复杂任务（用户手动选择时） |
 | `ANTHROPIC_MODEL` | 总默认值，通常与 Sonnet 一致 |
+| `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT` | 设为 `1` 关闭 Claude Code v2.1+ 的「未知模型窗口强制」，避免第三方模型报 catalog 警告并被限制在 200k 上下文 |
 
 提供商只有一个模型时，四个模型字段填同一值即可。
+
+> **关于 `[1m]` 后缀**：若确认模型上下文为 1M，也可在模型名后追加 `[1m]`（如 `deepseek-v4-pro[1m]`）声明窗口，让 auto-compact 使用完整窗口。但 `CLAUDE_CODE_DISABLE_UNKNOWN_MODEL_WINDOW_ENFORCEMENT=1` 更通用，无需知道每个模型的窗口大小。
